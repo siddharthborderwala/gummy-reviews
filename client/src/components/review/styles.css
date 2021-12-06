@@ -1,0 +1,35 @@
+.review {
+  display: inline-block;
+}
+
+.review--header {
+  margin-top: 1.8rem;
+}
+
+.review--rate__text {
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-right: 1rem;
+}
+
+.review--divider {
+  margin: 1.5rem 0 1.2rem;
+  border: none;
+  border-top: 1px solid #b9b9b9;
+}
+
+.review--reviews__list {
+  list-style-type: none;
+}
+
+li.review--reviews__item {
+  margin-top: 1rem;
+  justify-content: start;
+}
+
+.review--reviews__text {
+  margin-left: 0.25rem;
+  font-family: var(--font-text);
+  font-weight: 300;
+  color: var(--color-text-gray);
+}
