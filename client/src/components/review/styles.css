@@ -13,7 +13,7 @@
 }
 
 .review--divider {
-  margin: 1.5rem 0 1.2rem;
+  margin: 1.8rem 0 1.5rem;
   border: none;
   border-top: 1px solid #b9b9b9;
 }
@@ -28,8 +28,12 @@ li.review--reviews__item {
 }
 
 .review--reviews__text {
-  margin-left: 0.25rem;
   font-family: var(--font-text);
   font-weight: 300;
   color: var(--color-text-gray);
+}
+
+.review--reviews__number {
+  margin-left: 1rem;
+  font-family: 700;
 }

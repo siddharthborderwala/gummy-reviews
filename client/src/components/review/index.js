@@ -45,8 +45,8 @@ class Review extends Component {
                     max: this.props.maxRating,
                     isInput: false,
                   }).render()}
-                  <span style="margin-left: 1rem;">${review.rating},</span>
-                  <p class="review--reviews__text">${review.text}</p>
+                  <span class="review--reviews__number">${review.rating}</span>
+                  <p class="review--reviews__text">, ${review.text}</p>
                 </li>
               `
             )}
