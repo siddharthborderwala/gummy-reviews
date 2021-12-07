@@ -4,7 +4,7 @@ import './styles.css';
 
 class Rating extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.props = props;
   }
 

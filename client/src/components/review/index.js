@@ -6,7 +6,7 @@ import './styles.css';
 
 class Review extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.props = props;
   }
 
@@ -29,7 +29,10 @@ class Review extends Component {
           </div>
           ${new Button({
             label: 'Add review',
-            onclick: 'openNewReviewModal()',
+            onclick: {
+              target: 'self',
+              callback: () => console.log('click'),
+            },
           }).render()}
         </div>
         <hr class="review--divider" />

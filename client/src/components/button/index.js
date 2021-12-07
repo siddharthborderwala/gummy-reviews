@@ -3,13 +3,15 @@ import './styles.css';
 
 class Button extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.props = props;
   }
 
   render = () => {
     return `
-      <button class="button" onclick="${this.props.onclick}">${this.props.label}</button>
+      <button x-key="${this.key}" class="button" ${
+      this.props.disabled ? 'disabled' : ''
+    }>${this.props.label}</button>
     `;
   };
 }
