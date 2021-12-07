@@ -5,6 +5,24 @@ class Component {
     this.key = genKey();
     this.props = props;
     this.state = {};
+    this.setState = (value) => {
+      if (typeof value === 'function') this.state = value(this.state);
+      else this.state = value;
+      // get a reference to the top element in the component
+      const self = document.querySelector(`[x-key="${this.key}"]`);
+      // create a placeholder
+      const placeholder = document.createElement('placeholder');
+      // set its key
+      placeholder.setAttribute('x-key', `${this.key}--placeholder`);
+      // insert a placeholder
+      self.insertAdjacentElement('afterend', placeholder);
+      // remove self
+      self.remove();
+      // insert the re-rendered component
+      placeholder.insertAdjacentHTML('afterend', this.render());
+      // remove the placeholder
+      placeholder.remove();
+    };
 
     setTimeout(() => {
       for (let key in props) {

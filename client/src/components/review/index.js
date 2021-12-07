@@ -1,6 +1,7 @@
 import Component from '../../lib/component';
 import { mapRender } from '../../lib/util';
 import Button from '../button';
+import Modal from '../modal';
 import Rating from '../rating';
 import './styles.css';
 
@@ -8,11 +9,26 @@ class Review extends Component {
   constructor(props) {
     super(props);
     this.props = props;
+    this.state = {
+      isModalOpen: false,
+    };
   }
 
+  toggleModalVisible = () => {
+    this.setState((v) => ({ isModalOpen: !v.isModalOpen }));
+  };
+
   render = () => {
+    if (this.state.isModalOpen) {
+      new Modal({
+        parent: '.portal',
+        children: `<p>Hello</p>`,
+        closeModal: () => this.setState({ isModalOpen: false }),
+      }).render();
+    }
+
     return `
-      <div class="review">
+      <div class="review" x-key="${this.key}">
         <h1 class="review--title">
         ${this.props.title}
         </h1>
@@ -31,8 +47,9 @@ class Review extends Component {
             label: 'Add review',
             onclick: {
               target: 'self',
-              callback: () => console.log('click'),
+              callback: this.toggleModalVisible,
             },
+            disabled: this.state.isModalOpen,
           }).render()}
         </div>
         <hr class="review--divider" />
