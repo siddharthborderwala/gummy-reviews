@@ -1,8 +1,10 @@
 import Component from '../../lib/component';
 import { mapRender } from '../../lib/util';
 import Button from '../button';
+import CreateReviewForm from '../create-review-form';
 import Modal from '../modal';
 import Rating from '../rating';
+import ReviewsList from '../reviews-list';
 import './styles.css';
 
 class Review extends Component {
@@ -22,7 +24,13 @@ class Review extends Component {
     if (this.state.isModalOpen) {
       new Modal({
         parent: '.portal',
-        children: `<p>Hello</p>`,
+        children: `
+          ${new CreateReviewForm({
+            productId: this.props.id,
+            maxRating: 5,
+            defaultRating: 4,
+          }).render()}
+        `,
         closeModal: () => this.setState({ isModalOpen: false }),
       }).render();
     }
@@ -30,17 +38,16 @@ class Review extends Component {
     return `
       <div class="review" x-key="${this.key}">
         <h1 class="review--title">
-        ${this.props.title}
+        ${this.props.name}
         </h1>
         <div class="review--header row">
           <div class="review--rate row">
             <h2 class="review--rate__text">
-            ${this.props.rating}
+            ${this.props.averageRating.toPrecision(2)}
             </h2>
             ${new Rating({
-              rating: this.props.rating,
-              max: this.props.maxRating,
-              isInput: false,
+              rating: this.props.averageRating,
+              max: 5,
             }).render()}
           </div>
           ${new Button({
@@ -53,25 +60,7 @@ class Review extends Component {
           }).render()}
         </div>
         <hr class="review--divider" />
-        <div className="review--reviews">
-          <h3>Reviews</h3>
-          <ul class="review--reviews__list">
-            ${mapRender(
-              this.props.reviewsList,
-              (review) => `
-                <li class="review--reviews__item row">
-                  ${new Rating({
-                    rating: review.rating,
-                    max: this.props.maxRating,
-                    isInput: false,
-                  }).render()}
-                  <span class="review--reviews__number">${review.rating}</span>
-                  <p class="review--reviews__text">, ${review.text}</p>
-                </li>
-              `
-            )}
-          </ul>
-        </div>
+        ${new ReviewsList({ productId: this.props.id }).render()}
       </div>
     `;
   };

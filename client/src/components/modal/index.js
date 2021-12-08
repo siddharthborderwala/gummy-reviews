@@ -22,7 +22,7 @@ class Modal extends Component {
       `
       <div x-key="${this.key}" class="modal--bg">
         <div class="modal--container">
-          <div>
+          <div class="modal--cross-btn">
           ${new Button({
             label: 'x',
             onclick: {
@@ -34,6 +34,7 @@ class Modal extends Component {
             },
           }).render()}
           </div>
+          ${this.props.children}
         </div>
       </div>
     `,

@@ -1,0 +1,19 @@
+.reviews-list--list {
+  list-style-type: none;
+}
+
+li.reviews-list--item {
+  margin-top: 1rem;
+  justify-content: start;
+}
+
+.reviews-list--comment {
+  font-family: var(--font-text);
+  font-weight: 300;
+  color: var(--color-text-gray);
+}
+
+.reviews-list--rating {
+  margin-left: 1rem;
+  font-family: 700;
+}

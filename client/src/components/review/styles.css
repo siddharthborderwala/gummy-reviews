@@ -17,23 +17,3 @@
   border: none;
   border-top: 1px solid #b9b9b9;
 }
-
-.review--reviews__list {
-  list-style-type: none;
-}
-
-li.review--reviews__item {
-  margin-top: 1rem;
-  justify-content: start;
-}
-
-.review--reviews__text {
-  font-family: var(--font-text);
-  font-weight: 300;
-  color: var(--color-text-gray);
-}
-
-.review--reviews__number {
-  margin-left: 1rem;
-  font-family: 700;
-}
