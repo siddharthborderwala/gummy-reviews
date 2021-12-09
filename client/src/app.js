@@ -30,8 +30,7 @@ class App extends Component {
             : new Review(this.state.product).render()
         }
       </div>
-      <div class="portal">
-      </div>
+      <div class="portal"></div>
     `;
   };
 }

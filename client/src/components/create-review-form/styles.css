@@ -1,0 +1,30 @@
+.create-review-form {
+  min-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.create-review-form--sub-title {
+  margin: 1rem 0;
+}
+
+.create-review-form--rating {
+  display: inline-block;
+}
+
+.create-review-form--comment {
+  width: 100%;
+  min-height: 4rem;
+  border: none;
+  outline: none;
+  font-family: var(--font-text);
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+  max-height: 50vh;
+  color: var(--color-text-gray);
+}
+
+.create-review-form > button {
+  margin-top: 1rem;
+}

@@ -46,7 +46,7 @@ class Review extends Component {
             ${this.props.averageRating.toPrecision(2)}
             </h2>
             ${new Rating({
-              rating: this.props.averageRating,
+              rating: Math.round(parseFloat(this.props.averageRating)),
               max: 5,
             }).render()}
           </div>
