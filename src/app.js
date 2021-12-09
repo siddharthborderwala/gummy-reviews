@@ -16,7 +16,7 @@ const reviewsRouter = require('./routes/reviews');
 const productsRouter = require('./routes/products');
 
 app.use('/api/v1/reviews', reviewsRouter);
-app.use('/ap1/v1/products', productsRouter);
+app.use('/api/v1/products', productsRouter);
 
 app.get('/ping', (_, res) => res.send('pong'));
 app.get('/status', (_, res) => res.send('ok'));

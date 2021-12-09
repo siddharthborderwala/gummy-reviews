@@ -11,7 +11,7 @@ class App extends Component {
       product: null,
     };
 
-    fetch('http://localhost:3000/ap1/v1/products/default')
+    fetch('http://localhost:3000/api/v1/products/default')
       .then((res) => res.json())
       .then(({ product }) => {
         this.setState({
