@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const reviewsRouter = require('./routes/reviews');
 const productsRouter = require('./routes/products');
