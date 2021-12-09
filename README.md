@@ -13,8 +13,15 @@ Steps of implementation
 
 ## server
 
-- [x] Setup
+- [x] Basic Setup
 - [x] Create DB Schema 
 - [x] CORS for development
 - [x] Routers and Controllers
 - [x] Handle process events and rejections
+
+## tech stack
+
+- Javascript
+- [Nodejs](https://nodejs.org)
+- [Prisma](https://prisma.io)
+- MySQL
