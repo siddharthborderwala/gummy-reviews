@@ -2,20 +2,61 @@ import Component from '../../lib/component';
 import { mapRender } from '../../lib/util';
 import './styles.css';
 
-class Rating extends Component {
+class RangeInput extends Component {
   constructor(props) {
     super(props);
     this.props = props;
   }
+  render = () => {
+    return `
+      <input 
+        x-key="${this.key}"
+        name="${this.props.name}"
+        value="${this.props.value}"
+        type="range"
+        min="1"
+        max="5"
+        class="rating--range"
+      >
+    `;
+  };
+}
+
+class Rating extends Component {
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.state = {
+      rating: props.rating,
+    };
+  }
+
+  setRatingInput = (e) => {
+    this.setState({
+      rating: parseInt(e.target.value),
+    });
+  };
 
   render = () => {
     const active = Array(this.props.max)
       .fill(false)
-      .map((_, i) => i < this.props.rating);
-    const isInput = this.props.isInput;
+      .map((_, i) => i < this.state.rating);
+    const isInput = this.props.isInput ?? false;
 
     return `
-      <div class="rating row">
+      <div class="rating row" x-key="${this.key}">
+      ${
+        isInput
+          ? new RangeInput({
+              name: 'rating',
+              value: this.state.rating,
+              onchange: {
+                target: 'self',
+                callback: this.setRatingInput,
+              },
+            }).render()
+          : ''
+      }
       ${mapRender(
         active,
         (i) => `
