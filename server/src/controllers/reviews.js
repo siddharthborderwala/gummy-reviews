@@ -2,6 +2,7 @@ const { nanoid } = require('nanoid');
 const prisma = require('../prisma');
 const { MAX_RATING, MIN_RATING, RATING_INCREMENT } = require('../constants');
 const { generateId } = require('../util');
+const UserError = require('../classes/user-error');
 
 const reviewSelect = {
   id: true,
@@ -21,7 +22,7 @@ exports.getReviewById = async (req, res, next) => {
     });
     res.status(200).json({ review });
   } catch (err) {
-    return next(new UserError(err.message));
+    return next(new UserError(err.message, 400));
   }
 };
 
@@ -33,15 +34,19 @@ exports.getReviewsByProductId = async (req, res, next) => {
         productId,
       },
       select: reviewSelect,
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
     res.status(200).json({ reviews });
   } catch (err) {
-    return next(new UserError(err.message));
+    return next(new UserError(err.message, 400));
   }
 };
 
 exports.createReview = async (req, res, next) => {
-  const { rating, comment, productId } = req.body;
+  let { rating, comment, productId } = req.body;
+  rating = parseInt(rating);
 
   if (
     !rating ||
@@ -63,7 +68,7 @@ exports.createReview = async (req, res, next) => {
   }
 
   try {
-    const review = prisma.review.create({
+    await prisma.review.create({
       data: {
         id: generateId().next().value,
         comment,
@@ -71,22 +76,34 @@ exports.createReview = async (req, res, next) => {
         productId,
         maxRating: MAX_RATING,
       },
-      select: reviewSelect,
     });
-    // update the averageRating of the product
-    const product = await prisma.product.findUnique({
+
+    const { averageRating, reviewsCount } = await prisma.product.findUnique({
       where: {
         id: productId,
+      },
+      select: { averageRating: true, reviewsCount: true },
+    });
+
+    const updatedReviewsCount = reviewsCount + 1;
+    const updatedAverageRating =
+      (averageRating * reviewsCount + rating) / updatedReviewsCount;
+
+    // update the averageRating of the product
+    const product = await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        averageRating: updatedAverageRating,
+        reviewsCount: updatedReviewsCount,
       },
       select: {
         averageRating: true,
       },
     });
-    const newAverageRating =
-      (product.averageRating * product.reviewsCount + rating) /
-      (product.reviewsCount + 1);
-    res.status(200).json({ review });
+    res.status(200).redirect('/');
   } catch (err) {
-    return next(new UserError(err.message));
+    return next(new UserError(err.message, 400));
   }
 };

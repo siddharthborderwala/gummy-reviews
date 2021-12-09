@@ -17,6 +17,6 @@ exports.getDefaultProduct = async (req, res, next) => {
     });
     res.status(200).json({ product: defaultProduct });
   } catch (err) {
-    return next(new UserError(err.message));
+    return next(new UserError(err.message, 400));
   }
 };
