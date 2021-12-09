@@ -3,6 +3,9 @@ class UserError extends Error {
 
   constructor(message, code) {
     super(message);
-    this.code = code;
+    this.type = 'UserError';
+    this.code = code ?? 400;
   }
 }
+
+module.exports = UserError;
