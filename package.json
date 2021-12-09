@@ -6,15 +6,19 @@
   "author": "Siddharth Borderwala",
   "license": "MIT",
   "scripts": {
-    "postinstall": "npx prism generate && cd client && yarn install && yarn build && cd ..",
+    "postinstall": "npx prisma generate && cd client && yarn install && yarn build && cd ..",
     "start": "set NODE_ENV=production&&node src/index.js",
-    "dev": "set NODE_ENV=development&&nodemon src/index.js",
-    "populate": "node dev/populate.js"
+    "dev": "set NODE_ENV=development&&dotenv -e .env.dev -- nodemon src/index.js",
+    "populate": "node dev/populate.js",
+    "test": "set NODE_ENV=test&&dotenv -e .env.test -- jest --testTimeout=10000"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
+    "dotenv-cli": "^4.1.1",
+    "jest": "^27.4.3",
     "nodemon": "^2.0.15",
-    "prisma": "3.6.0"
+    "prisma": "3.6.0",
+    "supertest": "^6.1.6"
   },
   "dependencies": {
     "@prisma/client": "3.6.0",
@@ -23,7 +27,13 @@
     "nanoid": "^3.1.30"
   },
   "engines": {
-    "node": "16.x",
+    "node": ">=14",
     "yarn": "1.22.5"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
