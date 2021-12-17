@@ -3,6 +3,8 @@ on: [push]
 jobs:
   build:
     name: Test on Node ${{ matrix.node }} and ${{ matrix.os }}
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -22,5 +24,8 @@ jobs:
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
+      - name: Load env secrets in a temp file
+        run: echo "DATABASE_URL=\"$DATABASE_URL\"" >> ${{ runner.temp }}/.env.test
+
       - name: Test
-        run: yarn test
+        run: npx dotenv -e ${{ runner.temp }}/.env.test -- jest

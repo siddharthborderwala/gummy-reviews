@@ -18,7 +18,7 @@ describe('Test main GET endpoints', () => {
     expect(product).toHaveProperty('averageRating');
   });
 
-  it('GET /products/:productId/reviews/ should show product reviews', async () => {
+  it('GET /products/:productId/reviews should show product reviews', async () => {
     const res = await server.get(
       `/api/v1/products/${defaultProductId}/reviews`
     );
